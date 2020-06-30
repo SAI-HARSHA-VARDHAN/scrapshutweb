@@ -1,0 +1,178 @@
+@font-face {
+  font-family: 'OpenSans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('OpenSans'), url('/static/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-style: normal;
+  font-weight: bold;
+  src: local('OpenSans'), url('/static/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Angelina';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Angelina'), url('/static/fonts/Angelina.ttf') format('truetype');
+}
+
+.container{
+}
+.navbar, .header, .footer {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.footer {
+	padding: 20px 0 40px;
+	background-color: #222;
+	color: #eee;
+}
+.footer .links, .footer a {
+	color: #888;
+}
+
+.navbar {
+	border-top: 8px solid #fff;
+	background-color: #0A3057;
+	padding: 10px;
+	color: #FFFFFF;
+	margin: 0;
+}
+.navbar a {
+	text-decoration: none;
+}
+.navbar h1 {
+	margin: 0 0 3px 0;
+	font-size: 28px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	color: #f5f8d8;
+}
+.navbar h1 .sub {
+	display: block;
+	margin: 4px 0 0 34px;
+	font-size: 14px;
+	letter-spacing: 1px;
+	color: #fff;
+	font-weight: normal;
+}
+.navbar .inquire {
+	margin-top: 10px;
+}
+.navbar .inquire .icon {
+	margin-right: 5px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.splash {
+	text-align: right;
+	padding-top: 50px;
+	background:url('/mstatic/eweb_premium/images/city.png') repeat-x bottom; 
+}
+.splash h2 {
+	margin-bottom: 30px;
+	line-height: 1.1;
+	font-size: 42px;
+	color: #555;
+}
+.splash p.splash-text {
+	margin-bottom: 50px;
+	color: #555;
+	font-size: 18px;
+}
+.splash a.inquire {
+	margin-bottom: 25px;
+	padding: 14px 44px;
+	background-color: #f46414;
+	border: 1px solid #f94919;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	z-index: 2;
+	box-shadow: 0 1px 0 #fc9e6b inset;
+	box-shadow: 2px 2px 5px #888888;
+	text-shadow: 1px 1px 0 #823e19;
+	white-space: nowrap;
+}
+.splash a.inquire:hover {
+    background-color: #EF4902;
+    transition: 0.6s;
+}
+.splash p.btn-note {
+	width: 290px;
+	float: right;
+	margin: -20px 0 80px;
+	padding: 40px 20px 0 0;
+	background: transparent url('/mstatic/eweb_premium/images/arrow.png') no-repeat 0 0;
+	color: #2d6c9d;
+	font-family: Angelina, Verdana, Tahoma;	
+	font-size: 20px;
+}
+.splash .image {
+	 height: 450px;
+	 background: transparent url('/mstatic/eweb_premium/images/construction.png') 40% 100% no-repeat;
+}
+
+.services {
+	background-color: #38464F;
+	color: #E1E9ED;
+}
+.services h1, .services h2, .services h3, .services h4 {
+	color: #F4F9F9;
+}
+.services .intro {
+	padding: 16px 0 16px;
+	text-align: center;
+}
+.services .blurbs {
+  margin: 20px 0;
+}
+.blurb {
+	text-align: center;
+}
+.blurb img {
+	margin: 0 auto;
+}
+.blurb h4 {
+	margin: 24px auto;
+}
+.blurb p {
+	margin: 15px 0;
+}
+.blurb ul {
+	text-align: left;
+	padding-left: 33%;
+}
+.blurb a {
+	margin: 15px 0 40px;
+}
+
+/* Header sizing */
+@media all and (max-width: 1000px) {
+	.navbar h1 {
+		font-size: 22px;
+	}
+	.navbar h1 .sub {
+		margin-left: 27px; 
+	}
+	.splash h2 {
+		font-size: 32px;
+	}
+}
+@media all and (max-width: 510px) {
+	.navbar h1 {
+		font-size: 16px;
+	}
+	.navbar h1 .sub {
+		margin-left: 20px; 
+	}
+	.splash h2 {
+		font-size: 18px;
+	}
+}

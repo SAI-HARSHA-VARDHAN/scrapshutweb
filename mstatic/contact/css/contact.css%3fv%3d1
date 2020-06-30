@@ -1,0 +1,236 @@
+h2 {
+	margin: 5px 15px;
+	font-size: 18px;
+	color: #666;
+}
+h3 {
+	background-color: #999;
+	color: #fff;
+	padding: 1px 5px;
+	margin: 3em 0 1em;
+}
+p {
+	margin: 0 0 25px 0;
+}
+form {
+	padding: 0;
+}
+label {
+	width: 120px;
+	float: left;
+	display: block;
+	margin: 3px 5px;
+	text-align: right;
+}
+label.error {
+	color: red;
+}
+label.bold {
+	font-weight: bold;
+}
+label.terms {
+	width: auto;
+	margin: 5px;
+}
+label.lname {
+	width: auto;
+}
+input[type="text"], textarea {
+	float: left;
+	width: 220px;
+	margin: 3px 5px;
+}
+input[type="checkbox"] {
+	float: left;
+	margin: 8px 5px 8px 5px;
+}
+input[name="phone"], input[name="sub"], input[name="lname"] {
+	width: 150px;
+}
+input.subject {
+	width: 400px;
+}
+textarea {
+	width: 405px;
+}
+input[type="submit"] {
+	width: auto;
+}
+input.error {
+	border: 2px solid red;
+}
+form span {
+	margin: 2px 5px;
+	display: block;
+	float: left;
+}
+select {
+	float: left;
+	margin: 2px 5px;
+	display: block;
+}	
+br {
+	clear: both;
+}
+.small {
+	height: 0;
+	display: none;
+}
+span.error {
+	color: #ff0030;
+	padding: 4px 4px 4px 22px;
+	background: transparent url('/static/images/red_x.gif') left 6px no-repeat;
+	width: 550px;
+}
+div.error {
+	background: transparent url('/static/images/yellow_warning.gif') no-repeat 10px center;
+	padding: 15px 35px;
+	color: #b92140;
+	border: 2px solid #fbc2c4;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+
+div.sent {
+	border-left: 2px solid #aaa;
+	padding-left: 1em;
+	color: #666;
+}
+
+/* Thread login page */
+#cl {
+	margin: 40px 0 140px;
+}
+#cl label {
+	font-size: 110%;
+}
+#cl input[type='text'] {
+	padding: 3px;
+}
+#cl input.email {
+	 display:none;
+	 height:0;
+	 width:0
+}
+
+/* Thread view page */
+div.message {
+	margin: 15px 0;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+div.message div.h {
+	padding: 0 15px;
+	margin: 3px;
+	border-bottom: 1px solid #d2d2d2;
+}
+div.message div.b {
+	padding: 15px;
+}
+div.message .date {
+	display: block;
+	float: right;
+	color: #777;
+}
+div.message .from {
+	font-weight: bold;
+	color: #00681c;
+	padding-right: 12px;
+}
+div.message a.reply {
+	display: block;
+	color: #5b10b9;
+	margin-top: 15px;
+	text-decoration: none;
+}
+div.adm {
+	background-color: #f3ecfc;
+}
+div.adm .from {
+	color: #5b10b9;
+}
+div.reply_h {
+	padding: 4px 8px;
+	color: #fff;
+	font-size: 150%;
+	background-color: #48a12c;
+	border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+}
+div.reply {
+	 background-color: #ddf5d4;
+	border-radius: 0 0 8px 8px;
+	-webkit-border-radius: 0 0 8px 8px;
+}
+div.reply input[type="submit"] {
+	margin-left: 8px;
+}
+div.reply textarea {
+	width: 95%;
+	height: 100px;
+	margin: 16px 8px 8px;
+	padding: 8px;
+	border: 2px solid #48a12c;
+}
+div.old_message {
+	color: #777;
+	text-align: center;
+	margin: 10px 0 20px;
+}
+div.disclaimer {
+	margin: 15px 0;
+	color: #999;
+}
+
+/* Confirm Form */
+#mail_sent {
+	background: transparent url('/mstatic/sales/images/gold_mail_icon.jpg') no-repeat 25px center;
+	padding: 15px 25px 15px 140px;
+	margin: 15px 0 25px;
+	font-size: 120%;
+	color: #393319;
+	border: 1px solid #e6cf65;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+#confirm {
+	margin: 15px 0 25px;
+	padding-bottom: 25px;
+	background-color: #fff6ca;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+#confirm p {
+	padding: 0 25px 25px;
+}
+#confirm label {
+	font-weight: normal;
+	width: 250px;
+}
+#confirm input.email {
+	width: 0;
+	height: 0;
+	display: none;
+}
+#confirm input.code {
+	width: 100px;
+}
+#confirm input.image {
+	color: transparent;
+	margin-left: 5px;
+	background: transparent url('/mstatic/sales/images/confirm_email_button.jpg') no-repeat left top;
+	height: 29px;
+	width: 156px;
+	border: 0;
+	padding-top: 28px;
+	cursor:pointer;cursor:hand;
+}
+#confirm input.image:hover {
+	background: transparent url('/mstatic/sales/images/confirm_email_button.jpg') no-repeat left -29px;
+}
+
+/* Cancel Page */
+#cancelled {
+	padding-bottom: 140px;
+}

@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="p:domain_verify" content="2176efd29a08ce2a64da805cdd43a4d5" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/img/favicon/scrap.png">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Overpass:400,400i" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+  <!-- Custom Styles -->
+   <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+  <!-- AB-image -->
+  <link href="css/cndk.beforeafter.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/cndk.beforeafter.js"></script>
+  <script src="js/card.js"></script>
+
+  <title>ScrapShut</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/playvid.css">
+  <link rel="stylesheet" href="css/card.css">
+  <!-- scripts -->
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ 
+  <style>
+    .navbar-custom { 
+      background-color: white; 
+    } 
+    .image{
+      filter: grayscale(0.3);
+    }
+    .image:hover{
+      filter: blur(1px);
+      filter: grayscale(0);
+    }
+    .col-md-3:hover{
+      transform: scale(1.1);
+    }
+    .know{
+      background-color: white;
+      border:1px solid rgba(0, 0, 0, 0.541);
+      color: rgba(0, 0, 0, 0.541);
+    }
+    .mobile{
+      margin-top: -80px !important;
+    }
+    .mobilehead{
+      color: #000;
+    }
+    .main{
+      margin-top: 25vh;
+      margin-bottom: 25vh;
+    }
+    #mod1{
+      display: none;
+    }
+    #mod2{
+      display: none;
+    }
+    #mod0{
+      display: none;
+    }
+    .beforeafterdefault{
+      width: 100vw;
+    }
+    .navbar{
+      height: 15vh;
+    }
+    #mod{
+      display: none;
+    }
+    #result{
+      margin-top: 100px;
+    }
+    /* .mobiledemo{
+      height: 400px;
+      width: 700px;
+    } */
+  </style>
+  <script>
+    var c = 0;
+    function hello(){
+      if(c==0){
+        document.getElementById("toggletext").innerHTML = "HIDE";
+        c=1;
+      }
+      else{
+        document.getElementById("toggletext").innerHTML = "PLUG THIS";
+        c=0;
+      }
+    }
+    $(function(){
+      $(".beforeafterdefault").cndkbeforeafter({
+        mode:"drag",
+        theme:"dark",
+        showText:false
+      });
+    });
+    function postdetails(){
+      const name = $("#name").val();
+      const email = $("#email").val();
+      const city = $("#city").val();
+      const country = $("#country").val();
+      const description = $("#description").val();
+      const password = $("#password").val();
+      const confirmpassword = $("#confirmpassword").val();
+      if(password == confirmpassword){
+        const data = {dev_name:name,email:email,city:city,country:country,description:description,password:password,url:"",ipadress:""};
+        console.log(data);
+        $.ajax({
+          type: "POST",
+          url: "https://backend.scrapshut.com/company/register/",
+          transformRequest: function(obj) {
+              var str = [];
+              for(var p in obj)
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+              return str.join("&");
+          },
+          data: JSON.stringify(data),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (data) {
+              $("#response").html("You will receive a mail from us. Thank you!")
+              $("#exampleModalLongTitle").html("Success")
+              $("#mod").click();
+              console.log(data);
+          },
+          error: function(data)
+          {
+            $("#response").html(data.responseJSON.detail)
+            $("#exampleModalLongTitle").html("Error")
+            $("#mod").click();
+            console.log(data.responseJSON.detail);
+          }
+      });
+      }
+      else{
+        $("#response").html("Password and Confirm password doesn't match")
+        $("#exampleModalLongTitle").html("Error")
+        $("#mod").click();
+      }
+    }
+  </script>
+</head>
+
+<body onload="fetch()">
+  <!-- Top Notification about the release of the new product -->
+  <!-- <div class="">
+    <div class="notification-top">
+      <div class="content">
+        <span>Hey!Our new products are launched!</span>
+        <span>Check them out! </span>
+        <br>
+        <span><a href="#" class="products">Mozilla AddOn</a></span>
+        <span><a href="#" class="products">| Our Social Network </a></span>
+      </div>
+    </div>
+  </div>
+  <div class="close">
+    <i class="fas fa-times remove-notification"></i>
+  </div> -->
+
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom navbar-light" style="margin-top:0;">
+    <a class="navbar-brand" href=""><img src="img/scrap_withoutbg.png" alt="" class="brand" height="80px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#mozilla-addon" style="font-size:1.4em;color:#000;">Download</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#how-it-works" style="font-size:1.4em;color:#000;">How It works</a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link" href="https://developers.scrapshut.com/" style="font-size:1.4em;color:#000;" target="_blank">For Developers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://blog.scrapshut.com/" style="font-size:1.4em;color:#000;" target="_blank">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#footer" style="font-size:1.4em;color:#000;">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--<div class="intro">-->
+  <!--  <h1>Scrapshut</h1>-->
+  <!--  <video width="100px" height="100px" autoplay muted loop>-->
+  <!--        <source src="fin.mp4" type="video/mp4">-->
+  <!--        Browser Not compatable-->
+  <!--    </video>-->
+  <!--</div>-->
+
+  <div class="beforeafterdefault">
+    <div data-type="data-type-image">
+      <div data-type="before"><img src="img/before.jpg"></div>
+      <div data-type="after"><img src="img/after.jpg"></div>
+    </div>
+  </div>
+
+  <div id="result" class="container"></div>
+
+  <p style="text-align: center;margin-top: 50px;"> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" onclick="hello()" id="toggletext">PLUG THIS</button>
+  <div class="collapse multi-collapse" id="multiCollapseExample2">
+    <div class="container">
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" aria-describedby="thisone">
+          <small id="thisone">Use your company Mail address</small>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city">
+        </div>
+        <div class="form-group">
+          <label for="country">Country</label>
+          <input type="text" class="form-control" id="country">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+        <div class="form-group">
+          <label for="confirmpassword">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmpassword">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" rows="3"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="postdetails();">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="mod">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Error</h5>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p id="response">Please register with company email</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <section id="hero" style="padding-top:130px;height:380px;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-sm-12">
+          <h1 class="mt-2" style="font-size:50px;font-weight:700;">Best of Internet
+
+          </h1>
+          <!-- <p class="mt-4" style="font-size=20px;">
+            The easiest and the best way to crub scrap from the web </p> -->
+          <!-- <a href="https://app.cheerbox.com/#/signup" class="mt-3 btn btn-sm-block btn-lg btn-warning ">Get Started</a> -->
+        </div>
+        <div class="col hero-img-wrap order-sm-first">
+          <img src="img/logos/scrapshut.png" alt="Cheerbox Dashboard">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quote" class="text-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- <div class="col-sm-9 col align-self-center seenlogo">
+
+
+
+              <h5><em>Used by some of the world's top brands</em></h5>
+              <a class="customer-logos"><img src="https://s3-us-west-2.amazonaws.com/mentalhappy/devotedhealth.png"  style="width:250px;"/>  </a>
+              <a class="customer-logos"><img src="https://www.activecampaign.com/site/assets/press/branding/logo-blue.svg"  style="width:250px;"/>    </a>
+              <a class="customer-logos"><img src="img/ebay_logo.png"  style="width:125px;" /> </a>
+              <a class="customer-logos"><img src="img/gusto_logo.png"  style="width:250px;"/> </a>
+              <div style="width:100%;padding: 20px;"></div>
+
+
+
+          </div> -->
+      </div>
+    </div>
+  </section>
+
+  <div class="container mobile main">
+    <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <div class="d-flex justify-content-center align-items-center">
+        <img src="img/android.jpg" class="img-responsive"  alt="android" style="height: 500px;width: 250px;">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <br/>
+      <h1 >Mobile App</h1>
+      you want to the power to 
+                      <h5>Shut the scrap?.</h5>
+                      It's just one click away from you :)
+    </br>
+      <br/>
+      <a href="https://play.google.com/store/apps/details?id=com.scrapshut.scrapshut" target="_blank"> <button type="button" class="btn btn-lg  know" style="font-size:20px;"><b>Download</b></button></a>
+    </div>
+  </div>
+  </div>
+
+  <!-- <section id="customer-success" class="blue-bg" style="margin-bottom:0;"> light-background -->
+    <!-- <div class="container"> -->
+      <!-- <h4 class="text-center">Leading businesses send Cheerboxes for:</h4> -->
+      <!-- <div class="row"> -->
+        <!-- <a href="https://landing.cheerbox.com/encouragement-guy-2" target="_blank" class="col-lg col-sm-12 use-case-wrap"> -->
+        <!-- <div  class="col-md-3 center-block">
+          <img src="img/illustrations/svg/signup.png" alt="" class="image">
+          <h5 class="heading5">Signup</h5>
+        </div>
+        <br/> -->
+        <!-- <a href="https://landing.cheerbox.com/new-mom-2" target="_blank" class="col-lg col-sm-12 use-case-wrap"> -->
+        <!-- <div class="col-md-3 center-block">
+          <img src="img/illustrations/svg/news paper5.png" alt="" class="image">
+          <h5 class="heading5">Browsing The Web</h5>
+        </div>
+        <br/> -->
+
+        <!--<a href="https://landing.cheerbox.com/hope-after-loss-secular-2" target="_blank" class="col-lg col-sm-12 use-case-wrap">-->
+
+        <!-- <div class="col-md-3 center-block">
+          <img src="img/illustrations/svg/rating.png" alt="" class="image">
+          <h5 class="heading5">Rating</h5>
+        </div>
+        <br/> -->
+        <!--</a>-->
+
+        <!-- <a href="https://landing.cheerbox.com/employee-appreciation-2" target="_blank" class="col-lg col-sm-12 use-case-wrap"> -->
+
+        <!-- <div class="col-md-3 center-block">
+          <img src="img/illustrations/svg/genuine.png" alt="" class="image">
+          <h5 class="heading5"> BooM</h5>
+        </div>
+        <br/>
+
+      </div> -->
+      <!-- <div class="gusto-wrap row align-items-center mt-5">
+          <div class="col-sm-6">
+            <img class="product-photo" src="img/product-photos/cheerbox-1.png" alt="">
+          </div>
+          <div class="col">
+            <img class="customer-logos" src="img/sap-concur-logo.svg" alt="">
+            <h2>SAP Concur sends cheerboxes to their employees to show appreciation.</h2>
+            <p>
+              When Misty, a team member, workload doubled, Angie sent a Cheerbox to show her that she is valued.
+            </p>
+            <p>
+
+            <a href="https://app.cheerbox.com/#/signup" class="mt-3 btn btn-sm-block btn-lg btn-warning ">Get Started &rarr;</a>
+
+            </p>
+
+          </div>
+
+
+        </div> -->
+      <!-- <div class="quote-img-wrapper">
+                <img src="img/quote.svg" alt="">
+              </div> -->
+      <!-- <br>
+      <br> -->
+
+      <!-- <blockquote class="blockquote" style="text-align:center">
+        <h1 class="mb-3 heading1">"Internet is a huge dimension with many false positives and true negatives
+          ,Our Machine learning models are desgined and developed in such a way that they filter everything for you seamlessly :)"</h1> -->
+        <!-- <footer class="blockquote-footer"><em>Kristina B.</em></footer> -->
+      <!-- </blockquote> -->
+
+    <!-- </div> -->
+  <!-- </section> -->
+
+
+  <section id="mozilla-addon" style="margin-top:0;">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <img src="img/addon_for_scrapshut_720.png" alt="" class="addon">
+      </div>
+      <div class="col-md-6">
+        <br/>
+        <h3 class="heading2-addon">Download our Mozilla/Chrome extension over here and find out what is Fake</h3>
+        <br/>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/scrapshut/?src=search"> <button type="button" class="btn btn-dark btn-lg download-button" style="font-size:20px;"><i class="fab fa-firefox" style="color:#FFF;font-size:22px;"></i> Download</button></a>
+        <br/>
+        <a href="https://chrome.google.com/webstore/detail/scrapshut/oomimgkfdknnpjckknigikihflcdncgo/related?utm_source=chrome-ntp-icon"> <button type="button" class="btn btn-dark btn-lg download-button" style="font-size:20px;"><i class="fab fa-google" style="color:#FFF;font-size:22px;"></i> Download</button></a>
+      </div>
+    </div>
+    </div>
+    
+<br/><br/><br/>
+  <!-- </section>
+  <section>
+    <div class="container-fluid">
+      <h1 class="heading2-addon mobilehead">KIRA</h1>
+      <p class="mt-6" style="font-size=20px;text-align: center;">An Opensource Initiative from ScrapShut which can power your technology</p>
+      <h2 style="text-align: center;">How and What</h2>
+      <p style="text-align: center;"> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" onclick="hello()" id="toggletext">EXPLORE</button>
+      </p>
+      <div class="collapse multi-collapse" id="multiCollapseExample2">
+        <div id="demo" class="carousel slide" data-ride="carousel"> -->
+          <!-- Indicators -->
+          <!-- <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+            <li data-target="#demo" data-slide-to="3"></li>
+          </ul> -->
+          
+          <!-- The slideshow -->
+          <!-- <div class="carousel-inner">
+            <div class="carousel-inner mainc"  style="background-color: #87CEFA;">
+            <div class="carousel-item active">
+              <div class="row justify-content-center align-items-center" style="height: 600px;">
+                <div class="col-md-5 d-flex justify-content-center align-items-center" style="padding: 40px;">
+                  <img src="img/student.gif" class="mobiledemo" id="req" alt="android">
+                </div>
+                <div class="col-md-7">
+                  <br/>
+                  <h5 class="matter">STUDENTS CAN SHARE RESOURCES, GITHUB REPOSITORIES</h5>
+                  <br/>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row justify-content-center align-items-center" style="height: 600px;">
+                <div class="col-md-5 d-flex justify-content-center align-items-center" style="padding: 40px;">
+                  <img src="img/learning.jpg" class="mobiledemo" id="req" alt="android">
+                </div>
+                <div class="col-md-7">
+                  <br/>
+                  <h5 class="matter">
+                    WE ARE MORE THAN DELIGHTED TO CONTRIBUTE TO YOUR OPEN SOURCE PROJECTS AND IDEAS. WE ALWAYS WANT TO BE YOUR HELPING HAND IN LEARNING</h5>
+                  <br/>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row justify-content-center align-items-center" style="height: 600px;">
+                <div class="col-md-5 d-flex justify-content-center align-items-center" style="padding: 40px;">
+                  <img src="img/heavy.gif" class="mobiledemo" id="req" alt="android">
+                </div>
+                <div class="col-md-7">
+                  <br/>
+                  <h5 class="matter">PROJECT KIRA CAN BE USED TO ANALYZE USERS BEHAVIOR
+                    <br/><br/>
+                    ASSUME THAT YOU ARE A BLOGGER THEN YOU CAN ANALYZE WHAT TYPE OF BLOG’S ARE RATED ABOVE 4 STARS OR YOU CAN ANALYZE WHAT KIND OF CONTENT IS ATTRACTING USER'S</h5>
+                  <br/>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row justify-content-center align-items-center" style="height: 600px;">
+                <div class="col-md-5 d-flex justify-content-center align-items-center" style="padding: 40px;">
+                  <img src="img/personaladv.jpg" class="mobiledemo" id="req" alt="android">
+                </div>
+                <div class="col-md-7">
+                  <br/>
+                  <h5 class="matter">NOT JUST ANALYZING THE USER’S BEHAVIOUR BUT PERSONALIZED ADVERTISEMENTS TO EXACT USERS BASED ON TAGS ON SOCIALSCRAP APP FOR FREE IF YOU ARE HAVING SCRAPCOINS</h5>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          
+          <!-- Left and right controls -->
+          <!-- <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+      </div>
+      </div>
+  </section> -->
+  <br/>
+
+  <section id="how-it-works" class="blue-bg"> <!-- light-background -->
+    <div class="container">
+      <h2 class="text-center heading2">Wiringbridge ?</h2>
+      <br>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-sm-5">
+          <img src="img/search.jpg" alt="" class="img-steps">
+          <br>
+          <div class="arrow-wrap-1"><br><img src="img/arrow.svg" alt=""></div>
+          <br>
+          <br>
+
+        </div>
+        <div class="col-sm-5 offset-md-1">
+          <h4 class="heading">Search Search Search</h4>
+          <p>
+            you can search and read all the review's </br>
+            wait you didnt find one? <br>
+                  <b>then</b>
+          </p>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-sm-5">
+          <h4 class="heading">Go,Rate the World!</h4>
+          <p>
+            why dont you rate it and make others aware about it :) 
+            
+          </p>
+        </div>
+        <div class="col-sm-5 order-sm-first">
+          <img src="img/rating.jpg" alt="" class="stpe2 img-steps">
+          <br>
+          <br>
+
+          <div class="arrow-wrap-2"><img src="img/arrow-2.svg" alt=""></div>
+        </div>
+      </div>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-sm-5">
+          <img src="img/review.jpg" alt="" class="step3 img-steps">
+        </div>
+        <div class="col-sm-5 offset-md-1">
+          <h4 class="heading">Review the Reviewed</h4>
+          <p>
+            well we are very much aware about the Internet Spam <br> 
+            but what if  everyone start's Spamming unreasonably through this platform <br>
+            you still have the power you can review that post as  genuine/spam<br>
+            Guess what , we are going to terminate them 
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1" id="mod1">
+    <!-- Launch demo modal -->
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="margin: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">ScrapShut</h5>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <pre>
+<b>TERMS OF USE</b>
+This Agreement was last revised on May08th, 2020.
+I.	OUR INTRODUCTION
+ScrapShut(“we,” “us,” or “our”) welcomes you.  
+We offer you access to our services through our “Mobile Application” “Extension” “Desktop Application”(defined below) subject to the following terms, which may be updated by us from time to time with or without notice to you.  By accessing and using this Mobile Application, you acknowledge that you have read, understood and agree to be lawfully bound by these terms of use and our Privacy Policy, which are hereby incorporated by reference (collectively, this “Agreement”). In case you do not agree with any of these terms, then please do not use the Mobile Application. 
+II.	DEFINITIONS
+•	“Agreement” denotes to this Terms of this agreement and the Privacy Policy and other documents provided to you by the Mobile Application; 
+•	“Service” or “Services” is a reference to any service defined below, which we may supply and which you may request via our Mobile Application;
+•	“User”, “You” and “your” denotes to the person who is accessing the Mobile application for taking or availing any service from us;
+•	“We”, “us” and “our” are references SCRAPSHUT;
+•	“Mobile Application” or “Platform” or “Desktop Application” shall mean the mobile application “ScrapShut” or “App”;
+III.	INTERPRETATION
+•	All references to the singular include the plural and vice versa and the word "includes" should be construed as "without limitation".
+•	Words used herein regardless of the number and gender specifically used, shall be deemed and construed to include any other number, singular or plural, and any other gender, masculine, feminine or neuter, as the context requires.
+•	Reference to any statute, ordinance or other law includes all regulations and other instruments and all consolidations, amendments, re-enactments or replacements for the time being in force.
+•	All headings, bold typing and italics (if any) have been inserted for convenience of reference only and do not define limit or affect the meaning or interpretation of the terms of this Agreement.
+IV.	COMMITMENT AND SCOPE
+•	Scope. These Terms govern your use of the Mobile Application and the Services. Except as otherwise specified, these Terms do not apply to Third-Party Services, which are governed by their own terms of service.
+
+•	Eligibility: Our service is not available to minors under the age of 14 or to any users suspended or removed from the system by us for any reason.
+
+•	Electronic Communication: When you use this Mobile Application or send e-mails and other electronic communications from your desktop or mobile device to us, you are communicating with us electronically. By sending, you agree to receive a reply communications from us electronically in the same format and you can keep copies of these communications for your records.
+V.	OUR SERVICES
+ScrapShut mini tool is the app where we hold fake news tightly before they reach out to you. 
+It is a one stop platform to rate any thing over the internet
+The app, build up with three forms, where one form will rate any site/URL 
+other form rates messages that you have received over Whatsapp or other social media and the other form for the any Images.
+
+VI.	MODIFICATIONS TO THE SERVICE
+We reserve the right, in our discretion, to change, modify, add to, or remove portions of the Terms (collectively, “Changes”), at any time. We may notify you of Changes by sending an email to the address identified in your Account or by posting a revised version of the Terms incorporating the Changes to ourMobile Application.
+VII.	USER SUBMISSION
+A.	Content Responsibility. 
+When you use this mobile application/extension.,you agree to adhere to the content guidelines listed in our terms of services and privacy policies.You are solely responsible for the content submittedby you.You represent that you have required permission to use the content.
+Please do not use content that:
+•	contains ill-mannered, profane, abusive, racist or hateful language or expressions, text, photographs or illustrations that are pornographic or in poor taste, inflammatory attacks of a personal, racial or religious nature
+•	is defamatory, threatening, disparaging, grossly inflammatory, false, misleading, fraudulent, inaccurate, unfair, contains gross exaggeration or unsubstantiated claims
+•	violates the privacy rights of any third party, is unreasonably harmful or offensive to any individual or community
+•	discriminates on the grounds of race, religion, national origin, gender, age, marital status, sexual orientation or disability, or refers to such matters in any manner prohibited by law
+•	violates or inappropriately encourages the violation of any municipal, state, federal or international law, rule, regulation or ordinance
+•	sends repeated messages related to another user and/or makes derogatory or offensive comments about another individual or repeats prior posting of the same message under multiple emails or subjects
+•	Information or data which are unlawfully obtained
+Any submitted content may be refused by us. If repeated violations occur, we reserve the right to cancel user access to our services without advanced notice.
+VIII.	GRANT OF LICENSE
+•	Subject to the terms and conditions of this Agreement we hereby grantyou a non-exclusive, non-transferable, revocable license to use the Mobile Application and Service for the Term.
+•	Nothing in this Agreement shall be considered as a grant of title or ownership in the Service.
+Maintenance & Support:
+You acknowledge that we may, at our sole discretion, provide maintenance and support for the Service from time to time, we shall have no specific obligation whatsoever to furnish such services to you.
+Updates/ Upgrades:
+In the event that we launch new updates/upgrades of the Service, you may download such upgrades/updates. 
+IX.	GEOGRAPHIC RESTRICTION
+We reserve the right, to limit the usage or supply of any serviceto any person, geographic region or jurisdiction. We may use this right as per the necessity. We reserve the right to suspend any Service at any time. Any offer to provide any Service made on ourMobile Application/Desktop Application/ Any service is invalid where banned.
+X.	YOUR COMMITMENT AND RESPONSIBILITIES
+•	You shall use the Mobile Application, any of ourService for a lawful purpose and comply with all the applicable laws;
+•	You shall not upload, any content that:
+o	Defamatory, infringes any trademark, copyright or any proprietary rights of any person or affect any one’s privacy, contain violence or hate speech, includes any sensitive information about any person.
+•	You shall not use any virus, hacking tool for interfering in the operation of the Mobile Application or data and files of the Mobile Application;
+•	You will not use any device, scraper or any automated thing to access ourMobile Application for any means without taking permission.
+•	You will inform us about anything is inappropriate or  you can inform us if you find something illegal on the Mobile Application;
+•	You will not interfere with or try to interrupt the proper operation of the Mobile Application through the use of any virus, device, information collection or transmission mechanism, software or routine, or access or try to gain access to any data, files, or passwords connected to the Mobile Application through hacking, password or data mining, or any other means;
+•	You will not take any action that levies or may levy (in our sole decision) an unreasonable or unreasonably big load on our technical arrangement; and
+•	You will let us know about unsuitable content of which you become aware.  If you discover something that infringes any law, please let us know, and we’ll review it.
+We reserve the right, in our sole and absolute discretion, to deny you access to the Mobile Application or any service, or any portion of the Mobile Application or service, without notice, and to remove any content.
+XI.	GENERAL CONDITIONS
+•	We do not guarantee the accuracy, completeness, validity, or timeliness of information listed by us.
+•	The App is licensed to you on a limited, non-exclusive, non-transferrable, non-sub-licensable basis, solely to be used in connection with the Service for your private, personal, non-commercial use, subject to all the terms and conditions of this Agreement as they are applicable to the Service.
+•	You further acknowledge and agree that we have no obligation whatsoever to furnish any maintenance and support services with respect to the App.
+XII.	EXCLUSION OF LIABILITY
+You understand and agree that we (A) do not guarantee the accuracy, completeness, validity, or timeliness of information listed by us or any third parties; and (B) shall not be responsible for any materials posted by us or any third party. You shall use your own judgment, caution, and common sense in evaluating any prospective methods or offers and any information provided by us or any third party.
+Further, we shall not be liable for direct, indirect consequential or any other form of loss or damage that may be suffered by a user through the use of the ScrapShutMobile Application including loss of data or information or any kind of financial or physical loss or damage.
+In no event shall SCRAPSHUT, nor its Owners, directors, employees, partners, agents, suppliers, or affiliates, be accountable for any indirect, incidental, special, eventful or exemplary costs, including without limitation, loss of proceeds, figures, usage, goodwill, or other intangible losses, consequential from (i) your use or access of or failure to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content attained from the Service; and (iv) unlawful access, use or alteration of your transmissions or content, whether or not based on guarantee, agreement, domestic wrong (including carelessness) or any other lawful concept, whether or not we've been aware of the possibility of such damage, and even if a cure set forth herein is originated to have futile of its important purpose.
+XIII.	NO RESPONSIBILITY
+We are not responsible to you for: 
+•	any reliance that you may place on any material or commentary posted on our Mobile Application/Extension/Desktop Application. Please note that nothing contained in our Mobile Application or the material published on it is intended to amount to advice on which you should rely; or
+•	any losses you suffer because the information you put into our Mobile Application/Extension/Desktop Applicationis inaccurate or incomplete; or
+•	any losses you suffer because you cannot use our Mobile Application/Extension/Desktop Applicationat any time; or
+•	any errors in or omissions from our Mobile Application/Extension/Desktop Application; or
+•	any losses you may suffer by relying on any commentary, postings or reviews (of our services or that of our partners) on our Mobile Application; or
+•	any unauthorised access or loss of personal information that is beyond our control.
+XIV.	THIRD PARTY LINKS
+We may comprise links to external or third-party Websites (“External Sites”).  These links are provided exclusively as ease to you and not as an authorization by us of the content on such External Sites.  The content of such External Sites is created and used by others.  You can communicate the site administrator for those External Sites.  We are not accountable for the content provided in the link of any External Sites and do not provide any representations about the content or correctness of the information on such External Sites.  You should take safety measures when you are downloading files from all these Websites to safeguards your computer from viruses and other critical programs.  If you agree to access linked External Sites, you do so at your own risk.
+XV.	PERSONAL INFORMATION AND PRIVACY POLICY
+By accessing or using Mobile Application, you approve us to use, store or otherwise process your personal information as per our Privacy Policy.
+XVI.	ERRORS, INACCURACIES AND OMISSIONS
+Every effort has been taken to ensure that the information offered on ourMobile Applicationis accurate and error-free. We apologize for any errors or omissions that may have occurred. We cannot give you any warranty that usage of the Mobile Application will be error-free or fit for purpose, timely, that defects will be amended, or that the site or the server that makes it available are free of viruses or bugs or signifies the full functionality, accuracy, reliability of the Mobile Application and no warranty shall be provided by us for its suitability for any purpose.
+XVII.	DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
+OURMOBILE APPLICATION AND THE SERVICE ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS WITHOUT ANY WARRANTIES OF ANY KIND, INCLUDING THAT THE MOBILE APPLICATIONWILL OPERATE ERROR-FREE OR THAT THE MOBILE APPLICATION, ITS SERVERS OR ITS CONTENT OR SERVICE ARE FREE OF COMPUTER VIRUSES OR SIMILAR CONTAMINATION OR DESTRUCTIVE FEATURES.
+ 
+WE DISCLAIM ALL LICENSES OR WARRANTIES, INCLUDING, BUT NOT LIMITED TO, LICENSES OR WARRANTIES OF TITLE, MERCHANTABILITY, NON-VIOLATION OF THIRD PARTIES’ RIGHTS, AND FITNESS FOR PARTICULAR PURPOSE AND ANY WARRANTIES ARISING FROM A MATTER OF DEALING, COURSE OF PERFORMANCE, OR USAGE OF TRADE. IN RELATION WITH ANY WARRANTY, CONTRACT, OR COMMON LAW TORT CLAIMS: (I) WE SHALL NOT BE LIABLE FOR ANY UNINTENDED, INCIDENTAL, OR SUBSTANTIAL DAMAGES, LOST PROFITS, OR DAMAGES RESULTING FROM LOST DATA OR BUSINESS STOPPAGE  RESULTING FROM THE USE OR INABILITY TO ACCESS AND USE THE MOBILE APPLICATION OR THE CONTENT, EVEN IF WE HAVE BEEN RECOMMENDED OF THE POSSIBILITY OF SUCH DAMAGES.
+THE MOBILE APPLICATION MAY COMPRISE TECHNICAL INCORRECTNESS OR TYPOGRAPHICAL ERRORS OR OMISSIONS. UNLESS REQUIRED BY APPLICABLE LAWS, WE ARE NOT ACCOUNTABLE FOR ANY SUCH TYPOGRAPHICAL, TECHNICAL, OR PRICING ERRORS RECORDED ON THE MOBILE APPLICATION.  THE MOBILE APPLICATIONMAY CONTAIN INFORMATION ON CERTAIN SERVICES, NOT ALL OF WHICH ARE AVAILABLE IN EVERY LOCATION.  A REFERENCE TO A SERVICE ON THE MOBILE APPLICATION DOES NOT SUGGEST THAT SUCH SERVICE IS OR WILL BE ACCESSIBLE IN YOUR LOCATION.  WE RESERVE THE RIGHT TO DO CHANGES, CORRECTIONS, AND/OR IMPROVEMENTS TO THE MOBILE APPLICATION AT ANY TIME WITHOUT NOTICE.
+
+XVIII.	COPYRIGHT AND TRADEMARK
+We have provided certain materials such as graphics, logo, photo, designs audio recording, text, software etc. (collectively referred to as “Content”). The Content may be possessed by us or third parties.   Unauthorized use of the Content may infringe copyright, trademark, and other laws.  You have no rights in or to the Content, and you will not take the Content except as allowed under this Agreement.  No other use is allowed without prior written consent from us.  You must recollect all copyright and other proprietary notices contained in the original Content on any copy you make of the Content.  You shall not modify or transfer any copyrighted content in any way for any public or commercial purpose. 
+If you violate any provision of this Agreement, your rights to access or use the Mobile Application shall be terminated and you must with immediate effect destroy any and all copies you have created from the content.
+Our patent, trademarks, service marks, and logos used and displayed on the Mobile Application are registered and unregistered trademarks or service marks of us.  Other company, product, and service names located on the Mobile Applicationmay be trademarks or service marks owned by others (the “Third-Party Trademarks,” and, collectively with us, the “Trademarks”).  Nothing on the Mobile Application should be construed as granting, by implication, estoppel, or otherwise, any license or right to use the Trademarks, without our prior written permission specific for each such use.   
+INTELLECTUAL PROPERTY RIGHTS NOTIFICATION
+We respect the rights of copyright owners to control the uses of their intellectual property and require users of our websites and services to do the same. It is our policy to respond to notices of alleged infringement that comply with the applicable intellectual property laws. Responses may include removing or disabling access to the material.
+If you have an intellectual property rights-related complaint about material posted on the App, you may contact us using the information below.
+ATTN: Legal Department (Copyright Notification)
+Email: info@scrapshut.com
+Any notice alleging that materials hosted by or distributed through the website/app infringe intellectual property rights must include the following information:
+•	an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other right being infringed;
+•	a description of the copyrighted work or other intellectual property that you claim has been infringed;
+•	a description of the material that you claim is infringing and where it is located on the App;
+•	your address, telephone number, and email address;
+•	a statement by you that you have a good faith belief that the use of the materials on the Service of which you are complaining is not authorized by the copyright owner, its agent, or the law; and
+•	a statement by you that the above information in your notice is accurate and that, under penalty of perjury, you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner's behalf.
+XIX.	INDEMNIFICATION
+You agree to secure, indemnify, and hold us and our officers, directors, employees, successors, licensees, and allocates harmless from and against any dues, actions, or demands, including, without restriction, judicious legal and accounting fees, arising or consequential from your breach of this Agreement or your misappropriation of the Content of the Mobile Application/Extension/Desktop Application.  We shall provide you notice of such claim, suit or proceeding at your expense.  We reserve the right, at your expense, to undertake the exclusive defense and control of any case that is subject to indemnification under this section.  In such case, you agree to cooperate with any reasonable requests assisting our defense of such matter.
+XX.	MISCELLANEOUS
+SEVERABILITY
+If any provision of these Terms is found to be unenforceable or inacceptable, that provision will be limited or eliminated to the minimum extent necessary so that the Terms will otherwise remain in full force and effect and enforceable.
+TERMINATION
+Term. The Services will be provided to you can be cancelled or terminated by us. We may terminate these Services at any time, with or without cause, upon written notice. We will have no liability to you or any third party because of such termination. Termination of these Terms will terminate all of your Services subscriptions.
+Effect of Termination. Upon termination of these Terms for any reason, or cancellation or expiration of your Services: (a) We will cease providing the Services; (b) you will not be entitled to any refunds or usage fees, or any other fees, pro-rata or otherwise; (c) any fees you owe to us will immediately become due and payable in full, and (d) we may delete your archived data within 30 days. All sections of the Terms that expressly provide for survival, or by their nature should survive, will survive termination of the Terms, including, without limitation, indemnification, warranty disclaimers, and limitations of liability.
+ENTIRE AGREEMENT
+This Agreement constitutes the entire agreement between the parties hereto with respect to the subject matter contained in this Agreement.
+
+GOVERNING LAW AND JUDICIAL RECOURSE
+The terms herein will be governed by and construed in accordance with the Law of Indiawithout giving effect to any principles ofconflicts of law. The Courts ofIndiashall have exclusive jurisdiction over any dispute arising from the use of the Mobile Application.
+ FORCE MAJEURE
+We will have no liability to you, your users, or any third party for any failure us to perform its obligations under these Terms in the event that such non-performance arises as a result of the occurrence of an event beyond the reasonable control of us, including, without limitation, an act of war or terrorism, natural disaster, failure of electricity supply, riot, civil disorder, or civil commotion or other force majeure event.
+ASSIGNMENT
+We shall have the right to assign/transfer this agreement to any third party including its holding company, subsidiaries, affiliates, associates and group companies, without any consent of the User.
+CONTACT INFORMATION
+If you have any questions about these Terms, please contact us at info@scrapshut.com.
+        </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter0" id="mod0">
+    <!-- Launch demo modal -->
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter0" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="margin: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">ScrapShut</h5>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <pre>
+<b>COOKIES POLICY</b>
+BY CONTINUING TO USE OUR MOBILE APPLICATION (“SCRAPSHUT”) AND SERVICES, YOU ARE AGREEING TO THE USE OF COOKIES AND SIMILAR TECHNOLOGIES FOR THE PURPOSES WE DESCRIBE IN THIS COOKIES POLICY. IF YOU DO NOT ACCEPT THE USE OF COOKIES AND SIMILAR TECHNOLOGIES, DO NOT USE THIS MOBILE APPLICATION. 
+Cookies
+A cookie is a small text file that a Mobile Application saves on your mobile device when you use the Mobile Application. In general, cookies have two main purposes: to improve your browsing experience by remembering your actions and preferences, and to help us analyze our website traffic.
+What to do with Cookies?
+We uses cookies to help us analyze traffic to the app, to help us improve Mobile application performance and usability, and to make the Mobile Application more secure. Third-party cookies help us use Google Analytics to count, track and analyze use to the Mobile Application. This helps us understand how people are using our Mobile Application and where we need to make improvements. These third-party cookies do not specifically identify you.
+Types & Category of Cookies used
+List category of cookies used Scrapshut. For example: 
+a)	Security 
+We use cookies to enable and support our security features, and to help us detect malicious activity violations of our Terms and Conditions. 
+b)	Performance, Analytics, Research & Advertising 
+Cookies help us to learn how well our mobile application and web products perform in different locations. We also use these to understand, improve, and research products, features, and services, including when you access this app Scrapshut from other applications, or devices such as your work computer or your mobile device. We also use third party cookies to improve and personalize our marketing messages/communications with you.
+Control cookies
+You are always free to delete cookies that are already on your Mobile device through your App settings. However, this may prevent you from using certain features on the Mobile Application.            
+        </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2" id="mod2">
+    <!-- Launch demo modal -->
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="margin: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">ScrapShut</h5>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <pre>
+<b>Privacy Policy</b>
+Last updated [May08th, 2020]
+We respect the privacy of our users and every person who uses our Mobile Application/Extension/Desktop Application of Scrapshut. Here,Scrapshut(“we”, “us”, or “our”). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy or our practices with regards to your personal information, please contact us at info@scrapshut.com.
+When you use our Mobile Application,Extension,Desktop Application from  Scrapshut (“Mobile Application”,”extension”,”Desktop Application”), and use our services, you trust us with your personal information. We take your privacy very seriously. In this privacy notice, we describe our privacy policy. We seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy policy that you do not agree with, please discontinue the use of our Mobile Application and our services.
+This privacy policy applies to all information collected through our Mobile Application/Extension/Desktop Application, and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy )
+ABOUT US
+ScrapShut mini tool is the app where you can rate anything over the internet.
+
+The app, build up with three forms, where one form will rate any site/URL 
+other form rates messages that you have received over Whatsapp or other social media and the other form for the fake Images.
+We are located in theIndia.
+Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us.  
+1.	WHAT INFORMATION DO WE COLLECT?
+The Personal Information you disclose to us
+We collect personal information that you voluntarily provide to us when registering with us, expressing an interest in obtaining information about us or our products and services, when participating in activities on the Mobile Application/Extensions/Desktop Application or otherwise contacting us.
+The personal information that we collect depends on the context of your interactions with us and the Mobile Application, the choices you make and the products and features you use. The personal information we collect can include the following:
+Name and Contact Data. We collect your first and last name, email address, postal address, phone number, and other similar contact data.
+Information automatically collected
+We automatically collect certain information when you visit, use or navigate the Mobile Application. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, information about how and when you use our Mobile Application and other technical information.  If you access our Mobile Application with your mobile device, we may automatically collect device information (such as your mobile device ID, model and manufacturer), operating system, version information and IP address. This information is primarily needed to maintain the security and operation of our Mobile Application, and for our internal analytics and reporting purposes.
+Like many businesses, we also collect information through cookies and similar technologies. You can find out more about this in our Cookie Policy.
+Information collected from other Sources
+We may obtain information about you from other sources, such as public databases, joint marketing partners, social media platforms (such as Facebook), as well as from other third parties. 
+2.	HOW DO WE USE YOUR INFORMATION?
+We use your personal information for these purposes in reliance on our legitimate business interests (“Business Purposes”), in order to enter into or perform a contract with you (“Contractual”), with your consent (“Consent”), and/or for compliance with our legal obligations (“Legal Reasons”). We indicate the specific processing grounds we rely on next to each purpose listed below.  
+We use the information we collect or receive:  
+•	To send you marketing and promotional communications for Business Purposes and/or with your Consent. We and/or our third party marketing partners may use the personal information you send to us for our marketing purposes, if this is in accordance with your marketing preferences. You can opt-out of our marketing emails at any time (see below).
+•	To send administrative information to you for our business purposes, and/or for legal reasons. We may use your personal information to send you product, service and new feature information and/or information about changes to our terms, conditions, and policies.
+•	Deliver targeted advertising to you for our Business Purposes and/or with your Consent. We may use your information to develop and display content and advertising (and work with third parties who do so) tailored to your interests and/or location and to measure its effectiveness.
+•	Request Feedback for our Business Purposes and/or with your Consent. We may use your information to request feedback and to contact you about your use of our Mobile Application.
+•	To protect our Mobile Application for Business Purposes and/or Legal Reasons.  We may use your information as part of our efforts to keep our Mobile Application safe and secure (for example, for fraud monitoring and prevention).4
+•	To protect our Extension for Business Purposes and/or Legal Reasons.  We may use your information as part of our efforts to keep our Extensionsafe and secure (for example, for fraud monitoring and prevention).
+•	To protect our Desktop Application for Business Purposes and/or Legal Reasons.  We may use your information as part of our efforts to keep our Desktop Application safe and secure (for example, for fraud monitoring and prevention).
+•	
+•	To enable user-to-user communications with your consent. We may use your information in order to enable user-to-user communications with each user’s consent.
+•	To enforce our terms, conditions and policies for our business purposes and as legally required.
+•	To respond to legal requests and prevent harm as legally required. If we receive a subpoena or other legal request, we may need to inspect the data we hold to determine how to respond.
+•	For other Business Purposes. We may use your information for other Business Purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Mobile Application, products, services, marketing and your experience.
+3.	WILL YOUR INFORMATION BE SHARED WITH ANYONE?
+We only share and disclose your information in the following situations:
+•	Compliance with Laws. We may disclose your information where we are legally required to do so in order to comply with applicable law, governmental requests, a judicial proceeding, court order, or legal process, such as in response to a court order or a subpoena (including in response to public authorities to meet national security or law enforcement requirements).
+•	Vital Interests and Legal Rights. We may disclose your information where we believe it is necessary to investigate, prevent, or take action regarding potential violations of our policies, suspected fraud, situations involving potential threats to the safety of any person and illegal activities, or as evidence in litigation in which we are involved.
+•	Vendors, Consultants and Other Third-Party Service Providers. We may share your data with third party vendors, service providers, contractors or agents who perform services for us or on our behalf and require access to such information to do that work. 
+•	Business Transfers. We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.
+•	Third-Party Advertisers. We may use third-party advertising companies to serve ads when you use the Mobile Application. These companies may use information about your usage to our Mobile Application and other websites that are contained in web cookies and other tracking technologies in order to provide advertisements about goods and services of interest to you. See our Cookie Policy for further information.
+•	Affiliates. We may share your information with our affiliates, in which case we will require those affiliates to honor this privacy policy. Affiliates include our parent company and any subsidiaries, joint venture partners or other companies that we control or that are under common control with us.
+•	Business Partners. We may share your information with our business partners to offer you certain products, services or promotions.
+•	With your Consent. We may disclose your personal information for any other purpose with your consent.
+•	Other Users. When you share personal information (for example, by posting comments, contributions or other content to the Mobile Application) or otherwise interact with public areas of the Mobile Application, such personal information may be viewed by all users and may be publicly distributed outside the Mobile Application in perpetuity.
+4.	DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
+We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Policy.
+5.	IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?
+Our servers are located in ______________________. We will not transfer your personal information to an overseas recipient.
+6.	WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?
+The Mobile Application may contain advertisements from third parties that are not affiliated with us and which may link to other websites, online services or mobile applications. We cannot guarantee the safety and privacy of data you provide to any third parties. Any data collected by third parties is not covered by this privacy policy. We are not responsible for the content or privacy and security practices and policies of any third parties, including other websites, services or applications that may be linked to or from the Mobile Application. You should review the policies of such third parties and contact them directly to respond to your questions.
+7.	HOW LONG DO WE KEEP YOUR INFORMATION?
+We will only keep your personal information for as long as it is necessary for the purposes set out in this privacy policy, unless a longer retention period is required or permitted by law (such as tax, accounting or other legal requirements). 
+
+When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymize it, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.
+8.	HOW DO WE KEEP YOUR INFORMATION SAFE?
+We have implemented appropriate technical and organizational security measures designed to protect the security of any personal information we process. However, please also remember that we cannot guarantee that the internet itself is 100% secure. Although we will do our best to protect your personal information, transmission of personal information to and from our Mobile Application is at your own risk. You should only access the services within a secure environment.
+9.	DO WE COLLECT INFORMATION FROM MINORS?
+We do not knowingly solicit data from or market to children under 16 years of age.  Through thisMobile Application/Extension/Website/, you represent that you are at least 16 or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the Mobile Application.  If we learn that personal information from users less than 16 years of age has been collected, we will take reasonable measures to promptly delete such data from our records.  If you become aware of any data we have collected from children under age 16, please contact us at info@scrapshut.com.
+10.	GDPR ENTITLEMENT
+EU General Data Protection Regulation (GDPR) has provided the below rights to the EU residents:
+Right to information - the purposes for processing Personal Information and the rights of the individual.
+Right to access the Personal Information that are processed.
+Right to erasure (”Right to be forgotten”).
+Right to rectification.
+Right to restriction of processing.
+Right to object (opt-out) to processing.
+EU residents can exercise these rights by raising a request directly at info@scrapshut.com
+11.	WHAT ARE YOUR PRIVACY RIGHTS?
+ Information
+You may at any time review or change the information by:
+•	Contacting us using the contact information provided below
+We may change or delete your personal information, upon your request to change or delete your information from our active databases. However, some information may be retained in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use and/or comply with legal requirements.
+Cookies and similar technologies: Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, this could affect certain features or services of our Mobile Application. 
+Opting out of email marketing: You can unsubscribe from our marketing email list at any time by clicking on the unsubscribe link in the emails that we send or by contacting us using the details provided below. You will then be removed from the marketing email list – however, we will still need to send you service-related emails that are necessary for the administration. You can also opt-out by:
+•	Contacting us using the contact information provided below
+12.	DO WE MAKE UPDATES TO THIS POLICY?
+We may update this privacy policy from time to time. The updated version will be indicated by an updated “Revised” date and the updated version will be effective as soon as it is accessible. If we make material changes to this privacy policy, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this privacy policy frequently to be informed of how we are protecting your information.
+13.	DATA PROTECTION OFFICER
+We have appointed a Data Protection Officer (“DPO”) who is responsible for overseeing questions in relation to this privacy notice. If you have any questions about this privacy notice, including any requests to exercise your legal rights, please contact Data Protection Officer, at our e-mail info@scrapshut.com.
+14.	HOW CAN YOU CONTACT US ABOUT THIS POLICY?
+If you have questions or comments about this policy, email us at info@scrapshut.com.	
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+  <footer class="blue-section foot-section" id="footer" style="padding:7%;padding-bottom:5%;">
+    <div class="container">
+
+      <div class="col-lg-12">
+        <div class="col-lg-4 col-sm-12 align-self-center m-auto">
+          <p class="motto">
+            In the mission of eradicating false content from the world wide web since 2019
+          </p>
+        </div>
+      </div>
+      <div class="footer-div">
+        <a class="social-media-links fab fa-twitter" href="https://twitter.com/ScrapShut" target="_blank"></a>
+        <a class="social-media-links fab fa-facebook-f" href="https://www.facebook.com/scrapshut/?modal=admin_todo_tour" target="_blank"></a>
+        <a class="social-media-links fab fa-instagram" href="https://www.instagram.com/scrapshut/" target="_blank"></a>
+        <br>
+        <span style="color:#FFF;font-size: 18px;"> Copyright &copy; MxION Inc</span>
+        <p class="motto" style="font-size: medium;"><a onclick="document.getElementById('mod1').click();" href="javascript:void(0);" class="links"><u>TERMS OF USE</u></a>, <a onclick="document.getElementById('mod2').click();" href="javascript:void(0);" class="links"><u>PRIVACY POLICY</u></a> and <a onclick="document.getElementById('mod0').click();" href="javascript:void(0);" class="links"><u>COOKIES POLICY</u></a></p>
+
+      </div>
+
+  </footer>
+
+  <!-- <footer class="footer text-center" style="display:flex">
+    <div class="container">
+
+      <div class="col-lg-12">
+        <div class="col-lg-4 col-sm-12 align-self-center m-auto">
+          <p>
+            In the mission of eradicating false content from the world wide web since 2019
+          </p>
+          <p>
+            contact us :<a href="mailto:contactus@scrapshut.com" style="color:#fff;"> contactus@scrapshut.com</a>
+          </p>
+
+        </div>
+      </div>
+
+      <span style="font-size:12px; padding:10px;"> Copyright &copy; MxION Inc</span>
+    </div>
+  </footer> -->
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"
+  integrity="sha256-2p2tRZlPowp3P/04Pw2rqVCSbhyV/IB7ZEVUglrDS/c="
+  crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js"
+    integrity="sha256-peenofh8a9TIqKdPKIeQE7mJvuwh+J0To7nslvpj1jI="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.js"
+    integrity="sha256-31FC/OT6XpfjAhj9FuXjw5/wPXXawCAjJQ29E23/XPk="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"
+    integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U="
+    crossorigin="anonymous"
+  ></script>
+  <!-- <script type="text/javascript" src="js/playvid.js"></script> -->
+  <!-- jQuery cdn -->
+  <script type="text/javascript" src="js/index.js">
+    </body>
+
+</html>

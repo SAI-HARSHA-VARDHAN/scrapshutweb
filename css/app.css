@@ -1,0 +1,103 @@
+header{
+  position: relative;
+  background-color: #e6e3e3;
+  border-bottom-right-radius: 50% 20%;
+}
+
+h1{
+  margin: 0;
+  padding: 100px 0;
+  font: 44px "Arial";
+  text-align: center;
+}
+  
+header h1{
+   color: white;
+} 
+
+a{
+    color: rgba(0, 0, 0, 0.836) !important;
+    font-weight: 500;
+    margin-left: 15px;
+    font-size:20px !important;
+}
+
+.navbar-brand{
+    margin-left: 15vw;
+}
+
+.mobilehead{
+    color: #000;
+}
+
+.know{
+  border:1px solid rgba(0, 0, 0, 0.541);
+  color: rgba(0, 0, 0, 0.541);
+  margin-left: -18px;
+  margin-bottom: 60px;
+  border-radius: 25px;
+}
+
+.mobilehead{
+    margin-bottom: -20px;
+}
+
+.content{
+    font-size: large;
+    margin-top: -50px;
+}
+.contact{
+    width: 100%;
+    height: 105vh;
+    background-image: url("../img/dashboard.JPG");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+}
+
+.headb{
+    color: rgb(7, 7, 14);
+    margin-top: 45vh;
+}
+
+.but{
+    margin: 0 auto;
+    background-color: rgba(0, 0, 255, 0.856);
+    color: aliceblue;
+    border: none;
+    padding: 20px;
+    width: 200px;
+    border-radius: 50px;
+    margin-top: -50px;
+}
+
+.one{
+    height: 580px;
+    width: 280px;
+    margin-bottom: 10px;
+}
+.special{
+    margin-top: 100px;
+}
+.main{
+    margin-top: 8vh;
+}
+@media only screen and (max-width: 600px) {
+    .navbar-brand{
+        margin-left: 0vw;
+    }  
+    a{
+        margin-left: -20px;
+    } 
+    .know{
+        margin-left: 18px;
+    }
+}
+@media only screen and (min-width: 767px) {
+    header{
+        height: 100vh;
+    }
+}
+

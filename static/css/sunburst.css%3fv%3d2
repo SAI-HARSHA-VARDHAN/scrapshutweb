@@ -1,0 +1,143 @@
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td {
+	margin: 0; padding: 0;
+}
+html, body {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 13px;
+	color: #444;
+	line-height: 1.5;
+	background: #fff url('/static/images/sunburst/header_bg.gif?v=2') no-repeat top center;
+}
+.page_width {
+	width: 980px;
+	margin: 0 auto;
+}
+#header {
+	height: 120px;
+	position: relative;
+}
+#header_i {
+	height: 71px;
+}
+#header_i h1 {
+	padding: 12px 0 0 0;
+	margin: 0;
+	color: #fff;
+	font-size: 24px;
+}
+#header_i h1 a {
+	padding: 0 0 0 25px;
+	margin: 0;
+	color: #fff;
+	font-size: 28px;
+	text-decoration: none;
+	text-shadow: 2px 2px #3370dc;
+}
+#header_i img.sign {
+	position: absolute;
+	top: 0;
+	right: 105px;
+}
+#nav {
+	position: relative;
+	height: 49px;
+	padding: 14px 28px 0;
+}
+#nav_i a {
+	background: transparent url('/static/images/sunburst/nav_bullet.gif') no-repeat left 5px;
+	padding-left: 12px;
+	margin-right: 18px;
+	color: #213a6b;
+	text-decoration: none;
+	font-weight: bold;
+}
+#nav_i a:hover {
+	color: #222;
+}
+#nav_cc {
+	position: absolute;
+	right: 28px;
+	top: 15px;
+	color: #4b91c1;
+}
+#nav_cc a {
+	text-decoration: none;
+	color: #213a6b;
+}
+#nav_cc a:hover {
+	text-decoration: underline;
+}
+#nav_cc a.de {
+        background: url(/static/images/sunburst/de.gif) left no-repeat;
+        padding-left: 20px;
+}
+#nav_cc a.es {
+        background: url(/static/images/sunburst/es.gif) left no-repeat;
+        padding-left: 20px;
+}
+#nav_cc a.fr {
+        background: url(/static/images/sunburst/fr.gif) left no-repeat;
+        padding-left: 20px;
+}
+#nav_cc a.en {
+        background: url(/static/images/sunburst/gb.gif) left no-repeat;
+        padding-left: 20px;
+}
+#nav_cl {
+	position: absolute;
+	right: 28px;
+	top: 15px;
+	color: #4b91c1;
+	font-weight: bold;
+}
+#nav_cl a {
+	text-decoration: none;
+	color: #213a6b;
+}
+#nav_cl a:hover {
+	text-decoration: underline;
+}
+
+.addthis {
+	float: right;
+	margin: 15px 18px 0 0;
+}
+.addthis_pill_style {
+	margin-right: 10px;
+}
+.addthis_button_tweet {
+}
+.addthis_button_facebook_like {
+}
+#page {
+	background: #fff url('/static/images/sunburst/content_bg.jpg') no-repeat top center;
+}
+#content {
+}
+#content_i {
+	padding: 30px;
+}
+#footer {
+	clear: both;
+	color: #666;
+}
+#footer_i {
+	padding: 15px 30px;
+}
+#footer .links {
+	padding: 15px 0;
+}
+#footer .links a {
+	color: #777;
+}
+a {
+	color: #5872CF;
+}
+a:hover {
+	color: #D0662F;
+}
+h1 {
+	margin: 5px 0;
+	font-weight: normal;
+	font-size: 180%;
+}
