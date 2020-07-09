@@ -22,6 +22,8 @@
 })();
   
 function fetch(){
+  localStorage.apikey = '80IdCIAg.E9yZMEHQyQhemv7cEbfkwZP8ulW8ZqVE'
+
     // alert(window.name)
     if(window.name != "")
     localStorage.access_token = window.name
