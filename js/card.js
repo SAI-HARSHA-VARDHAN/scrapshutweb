@@ -23,11 +23,10 @@
   
 function fetch(){
   localStorage.apikey = '80IdCIAg.E9yZMEHQyQhemv7cEbfkwZP8ulW8ZqVE'
-
     // alert(window.name)
     if(window.name != "")
     localStorage.access_token = window.name
-    const companyViewUrl = "https://backend.scrapshut.com/company/view"
+    const companyViewUrl = "https://backend.scrapshut.com/company/view/1"
     $.ajax({
         type: "GET",
         headers : {
@@ -40,7 +39,8 @@ function fetch(){
             const company_name = data.results[0].company_name
             localStorage.company_name = company_name
             console.log("Company name stored is "+localStorage.company_name)
-            checkIfCompanyValid()
+            // checkIfCompanyValid()
+            fetchRatings()
         },
         error: function(data)
         {
@@ -66,7 +66,7 @@ function checkIfCompanyValid(){
 }
 
 function fetchRatings(){
-    const ratingsUrl = "https://backend.scrapshut.com/company/post/?search="+localStorage.company_name
+    const ratingsUrl = "https://backend.scrapshut.com/company/post/?search="+localStorage.company_name.split(" ")[0]
     $.ajax({
         type: "GET",
         headers : {
