@@ -39,6 +39,46 @@
     padding-top: 2px;
     padding-bottom: 2px;
 }
+#fullScreen{
+    background-color: black;
+    text-align: left;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 30vh;
+}
+
+#user_typed_company{
+    border: 0px;
+    border-bottom: 1px solid white;
+    background-color: black;
+    outline: none;
+    color: white;
+    width: 70vw;
+    font-size: 1.7em;
+}
+
+#user_typed_company:focus{
+    border: 0px;
+    border-bottom: 1px solid white;
+}
+
+#companyButton{
+    font-size: 1.2em;
+    margin-top: 20px;
+    /* border: 0px;
+    outline: 0px;
+    padding: 2px;
+    padding-left: 15px;
+    padding-right: 15px; */
+    border-radius: 5px;
+    /* color: white; */
+}
+.headCol{
+    color: white;
+    text-align: left;
+    margin-bottom: 5vh;
+}
+
 @media only screen and (max-width: 600px) {
     .card{
         width: 90vw !important;

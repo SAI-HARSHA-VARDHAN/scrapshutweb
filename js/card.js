@@ -21,105 +21,126 @@
   (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(link);
 })();
   
+var ifCompany = 0;
+var results_object = [
+  {
+    author:"Mounikesh",
+    rate:5,
+    review:"Great Service"
+  },
+  {
+    author:"Harsha",
+    rate:5,
+    review:"Very useful"
+  },
+  {
+    author:"Anonymous",
+    rate:5,
+    review:"Good Support"
+  }
+];
+
 function fetch(){
-  localStorage.apikey = '80IdCIAg.E9yZMEHQyQhemv7cEbfkwZP8ulW8ZqVE'
+  // localStorage.apikey = '80IdCIAg.E9yZMEHQyQhemv7cEbfkwZP8ulW8ZqVE'
     // alert(window.name)
-    if(window.name != "")
-    localStorage.access_token = window.name
-    const companyViewUrl = "https://backend.scrapshut.com/company/view/1"
-    $.ajax({
-        type: "GET",
-        headers : {
-            "API-KEY":localStorage.apikey
-        },
-        contentType: 'application/json',
-        url: companyViewUrl,
-        data: {},
-        success: function (data) {
-            const company_name = data.results[0].company_name
-            localStorage.company_name = company_name
-            console.log("Company name stored is "+localStorage.company_name)
-            // checkIfCompanyValid()
-            fetchRatings()
-        },
-        error: function(data)
-        {
-            console.log(data)
-        }
-    });  
+    // if(window.name != "")
+    // localStorage.access_token = window.name
+    // const companyViewUrl = "https://backend.scrapshut.com/company/view/1"
+    // $.ajax({
+    //     type: "GET",
+    //     headers : {
+    //         "API-KEY":localStorage.apikey
+    //     },
+    //     contentType: 'application/json',
+    //     url: companyViewUrl,
+    //     data: {},
+    //     success: function (data) {
+    //         const company_name = data.results[0].company_name
+    //         localStorage.company_name = company_name
+    //         console.log("Company name stored is "+localStorage.company_name)
+    //         // checkIfCompanyValid()
+    //         fetchRatings()
+    //     },
+    //     error: function(data)
+    //     {
+    //         console.log(data)
+    //     }
+    // });  
+    $("#mainContent").show();
+    fetchRatings();
 }
 
-function checkIfCompanyValid(){
-    // const current_url = location.href
-    const current_url = "https://social.scrapshut.com"
-    const domain_name = current_url.split("//")[1].split("/")[0]
-    const domain_parts = domain_name.split("\.")
-    console.log(domain_parts)
-    if(domain_parts.includes(localStorage.company_name)){
-        console.log("Matched")
-        fetchRatings()
-    }
-    else{
-        console.log("Domain Doesn't match")
+// function checkIfCompanyValid(){
+//     // const current_url = location.href
+//     const current_url = "https://social.scrapshut.com"
+//     const domain_name = current_url.split("//")[1].split("/")[0]
+//     const domain_parts = domain_name.split("\.")
+//     console.log(domain_parts)
+//     if(domain_parts.includes(localStorage.company_name)){
+//         console.log("Matched")
+//         fetchRatings()
+//     }
+//     else{
+//         console.log("Domain Doesn't match")
 
-    }
-}
+//     }
+// }
 
 function fetchRatings(){
-    const ratingsUrl = "https://backend.scrapshut.com/company/post/?search="+localStorage.company_name.split(" ")[0]
-    $.ajax({
-        type: "GET",
-        headers : {
-            "API-KEY": localStorage.apikey
-        },
-        contentType: 'application/json',
-        url: ratingsUrl,
-        data: {},
-        success: function (data) {
-            const object = data
-            const len = object.results.length
-            const results_object = object.results
-            var avgrating = 0
-            var cnt = 0
-            for(let i=0;i<results_object.length;i++){
-                avgrating += results_object[i].rate
-                console.log(results_object[i])
-                cnt += 1
-            }
-            avgrating = avgrating/cnt
-            roundedAvg = Math.round(avgrating)
+    // const ratingsUrl = "https://backend.scrapshut.com/company/post/?search="+localStorage.company_name.split(" ")[0]
+    // $.ajax({
+    //     type: "GET",
+    //     headers : {
+    //         "API-KEY": localStorage.apikey
+    //     },
+    //     contentType: 'application/json',
+    //     url: ratingsUrl,
+    //     data: {},
+    //     success: function (data) {
+    //         const object = data
+    //         const len = object.results.length
+    //         const results_object = object.results
+    //         var avgrating = 0
+    //         var cnt = 0
+    //         for(let i=0;i<results_object.length;i++){
+    //             avgrating += results_object[i].rate
+    //             console.log(results_object[i])
+    //             cnt += 1
+    //         }
+    //         avgrating = avgrating/cnt
+    //         roundedAvg = Math.round(avgrating)
             var html = ``;
             html += `<div class="row insidecontainer" style="width:50vw;">`+
             `<div class="col-4" align="center"><img src="https://scrapshut.s3.ap-south-1.amazonaws.com/scrapshut.gif" height="150px" width="150px"></div>`+
-            `<div class="col-8"><h3 class='company'>Organization Name</h3>`
-            for(let j=0;j<roundedAvg;j++){
+            `<div class="col-8"><h3 class='company'>${localStorage.company_name}</h3>`
+            for(let j=0;j<5;j++){
                 html += `<span class='star' style='color:gold;'>★</span>`
             }
-            let remain = 5 - roundedAvg;
+            let remain = 0;
             for(let j=0;j<remain;j++){
                 html += `<span class='star remain'>&#9734;</span>`
             }
-            html += `<span class='rate'> ${avgrating.toFixed(1)} out of 5</span>`+
-            `<br/>${cnt} ratings<br/>`
-            if(localStorage.access_token)
+            html += `<span class='rate'> 5 out of 5</span>`+
+            `<br/>3 ratings<br/>`
+            // if(localStorage.access_token)
             html += `<button class="btn-primary ratethis" onclick="window.open('https://www.wiringbridge.com/review.html')">Rate this</button></div>`
-            else
-            html += `<button class="btn-primary ratethis" onclick="openpopup()">Signup to review</button></div>`
+            // else
+            // html += `<button class="btn-primary ratethis" onclick="openpopup()">Signup to review</button></div>`
             html +=`</div><br/><div class='container review' onclick="showhide()"><b>REVIEWS &#8595;</b></div><br/><div id="cardgroup">`
             for(let i=0;i<results_object.length;i++){
-                html += `<div class="card" style="width:45vw;"><div class='card-header'><div class="row"><div class="col"><b>${results_object[i].author}</b></div> <div class="col" align="right">${results_object[i].rate}⭐️</div></div></div>`+
+                html += `<div class="card" style="width:40vw;"><div class='card-header' style="background-color:#f2f2f2;"><div class="row"><div class="col"><b>${results_object[i].author}</b></div> <div class="col" align="right">${results_object[i].rate}⭐️</div></div></div>`+
                 `<div class='card-body'>${results_object[i].review}</div></div>`
             }
             html += `</div>`
             $("#result").html(html)
             $("#cardgroup").hide()
             
-        },
-        error: function(data)
-        {
-            console.log(data)
-        }
-    });
+        // },
+        // error: function(data)
+        // {
+        //     console.log(data)
+        // }
+    // });
 }
 
 function openpopup(){

@@ -122,6 +122,9 @@
         showText:false
       });
     });
+    window.onload = function(){
+      $("#mainContent").hide();
+    } 
     function postdetails(){
       const name = $("#name").val();
       const email = $("#email").val();
@@ -166,10 +169,32 @@
         $("#mod").click();
       }
     }
+    function submitcompany(){
+      var user_typed_name = $("#user_typed_company").val();
+      if(user_typed_name != ""){
+        ifCompany = 1;
+        localStorage.company_name = user_typed_name;
+        console.log(localStorage.company_name);
+        $("#fullScreen").fadeOut();
+        $("#mainContent").css("visibility","visible");
+        fetch();
+      }
+      else{
+        closeit();
+      }
+    }
+    function closeit(){
+      ifCompany = 0;
+      localStorage.company_name = 'Organization Name';
+      console.log(localStorage.company_name);
+      $("#fullScreen").fadeOut();
+      $("#mainContent").css("visibility","visible");
+      fetch();
+    }
   </script>
 </head>
 
-<body onload="fetch()">
+<body>
   <!-- Top Notification about the release of the new product -->
   <!-- <div class="">
     <div class="notification-top">
@@ -186,6 +211,16 @@
     <i class="fas fa-times remove-notification"></i>
   </div> -->
 
+  <div id="fullScreen">
+      <div class="container contentBox">
+        <p style="color: white;position: absolute;top: 0;right: 0;margin: 20px;font-size: 1.3em;cursor: pointer;" onclick="closeit();">✖</p>
+        <h3 class="headCol">If you belong to a company, please enter your company name</h3>
+        <input type="text" id="user_typed_company" placeholder="Type your answer here..."><br/>
+        <button type="button" class="btn btn-primary" onclick="submitcompany();" id="companyButton">OK ✓</button>
+      </div>
+  </div>
+
+  <div id="mainContent" style="visibility: hidden;">
   <!-- Nav Bar -->
   <nav class="navbar navbar-expand-lg navbar-custom navbar-light" style="margin-top:0;">
     <a class="navbar-brand" title="Scrapshut- A Power to rate internet" href=""><img src="img/scrap_withoutbg.png" alt="Scrapshut- A Power to rate internet" class="brand" height="80px"></a>
@@ -230,10 +265,8 @@
   </div>
 
   <div id="result" class="container"></div>
-
-  <p style="text-align: center;margin-top:20px;"><a href="https://www.producthunt.com/posts/scrapshut?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-scrapshut" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=209239&theme=light" alt="Scrapshut - Best page of Internet | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a></p>
-
-  <p style="text-align: center;margin-top: 50px;"> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" onclick="hello()" id="toggletext">PLUG THIS</button>
+  <p style="text-align: center;margin-top: 20px;"> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" onclick="hello()" id="toggletext">PLUG THIS</button>
+    <!-- <p style="text-align: center;margin-top:80px;"><a href="https://www.producthunt.com/posts/scrapshut?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-scrapshut" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=209239&theme=light" alt="Scrapshut - Best page of Internet | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a></p> -->
   <div class="collapse multi-collapse" id="multiCollapseExample2">
     <div class="container">
       <form>
@@ -893,6 +926,7 @@ If you have questions or comments about this policy, email us at info@scrapshut.
       </div>
 
   </footer>
+</div>
 
   <!-- <footer class="footer text-center" style="display:flex">
     <div class="container">
