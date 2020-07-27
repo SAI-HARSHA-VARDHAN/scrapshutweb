@@ -126,7 +126,10 @@
       $("#mainContent").hide();
     } 
     function postdetails(){
-      const name = $("#name").val();
+      if ($('#checkBox').is(":checked"))
+      {
+        
+        const name = $("#name").val();
       const email = $("#email").val();
       const city = $("#city").val();
       const country = $("#country").val();
@@ -167,6 +170,10 @@
         $("#response").html("Password and Confirm password doesn't match")
         $("#exampleModalLongTitle").html("Error")
         $("#mod").click();
+      } 
+      }
+      else{
+        alert("Please Agree to our Terms and Conditions");
       }
     }
     function submitcompany(){
@@ -299,6 +306,7 @@
           <label for="description">Description</label>
           <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
+        <input type="checkbox" id="checkBox"> <span>I agree</span><br/><br/>
         <button type="button" class="btn btn-primary" onclick="postdetails();">Submit</button>
       </form>
     </div>
