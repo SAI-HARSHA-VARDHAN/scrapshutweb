@@ -130,7 +130,7 @@
     window.onload = function(){
       $("#mainContent").hide();
       if(localStorage.postdetails){
-          document.getElementById("postsubmit").disabled = "true";
+          // document.getElementById("postsubmit").disabled = "true";
       }
     } 
     function postdetails(){
@@ -166,6 +166,10 @@
         f = 0;
         mssg = ("Please enter a valid password");
       }
+      else if(description.length == 0){
+        f = 0;
+        mssg = ("Please enter description");
+      }
       else{}
       if(password == confirmpassword){
         if(f){
@@ -184,16 +188,23 @@
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function (data) {
-              $("#exampleModalLongTitle").html("You will receive a mail from us. Thank you!")
-              $("#exampleModalLongTitle1").html("Success")
+              if(data.message == "Already registered"){
+                $("#exampleModalLongTitle").html("You have already registered with us")
+                $("#exampleModalLongTitle1").html("Error")
+              }
+              else{
+                $("#exampleModalLongTitle").html("You will receive a mail from us. Thank you!")
+                $("#exampleModalLongTitle1").html("Success")
+              }
               $("#mod").click();
               document.getElementById("scontent").style.display = "none";
               localStorage.postdetails = true;
-              document.getElementById("postsubmit").disabled = "true";
+              // document.getElementById("postsubmit").disabled = "true";
               console.log(data);
           },
           error: function(data)
           {
+            console.log(data);
             if(data.status == 500){
               $("#exampleModalLongTitle").html("Please enter valid email")
               $("#exampleModalLongTitle1").html("Error")
