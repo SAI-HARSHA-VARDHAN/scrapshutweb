@@ -47,7 +47,7 @@
     padding-top: 30vh;
 }
 
-#user_typed_company,#name,#email,#city,#country,#password,#confirmpassword{
+#user_typed_company,#name,#email,#city,#country,#password,#confirmpassword,#company,#domain{
     border: 0px;
     border-bottom: 1px solid white;
     background-color: black;

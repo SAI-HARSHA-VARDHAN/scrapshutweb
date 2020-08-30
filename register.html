@@ -29,6 +29,8 @@
                     const country = $("#country").val();
                     const description = $("#description").val();
                     const password = $("#password").val();
+                    const company = $("#company").val();
+                    const domain = $("#domain").val();
                     const confirmpassword = $("#confirmpassword").val();
                     var mssg = "Some Error occured, Please Try again!";
                     if(name.length <= 0){
@@ -55,10 +57,22 @@
                         f = 0;
                         mssg = ("Please enter description");
                     }
+                    else if(company.length == 0){
+                        f = 0;
+                        mssg = ("Please enter a valid company name");
+                    }
+                    else if(domain.length == 0){
+                        f = 0;
+                        mssg = ("Please enter a valid domain");
+                    }
+                    else if(!domain.includes("http")){
+                      f = 0;
+                      mssg = ("Please enter a valid domain url");
+                    }
                     else{}
                     if(password == confirmpassword){
                         if(f){
-                        const data = {dev_name:name,email:email,city:city,country:country,description:description,password:password,url:"",ipadress:""};
+                        const data = {dev_name:name,email:email,city:city,cname:company,domain:domain,country:country,description:description,password:password,url:"",ipadress:""};
                         console.log(data);
                         $.ajax({
                         type: "POST",
@@ -130,7 +144,7 @@
             <div id="fullScreen" style="overflow: auto;width:100%;padding-top: 5vh;">
                 <div class="container contentBox">
                   <!-- <p style="color: white;position: absolute;top: 0;right: 0;margin: 20px;font-size: 1.3em;cursor: pointer;" onclick="closeit();">✖</p> -->
-                  <h3 class="headCol" style="text-align: center;">Register your company for Scrapshut plug</h3>
+                  <h3 class="headCol" style="text-align: center;">Board the Ship</h3>
                   <!-- <input type="text" id="user_typed_company" placeholder="Type your answer here..."><br/>
                   <button type="button" class="btn btn-primary" onclick="submitcompany();" id="companyButton">OK ✓</button> -->
                   <div class="container">
@@ -151,6 +165,14 @@
                       <div class="form-group" style="margin-bottom: 35px;">
                         <!-- <label for="country">Country</label> -->
                         <input type="text" id="country" placeholder="Country*" style="font-size: 1.3em;">
+                      </div>
+                      <div class="form-group" style="margin-bottom: 35px;">
+                        <!-- <label for="country">Country</label> -->
+                        <input type="text" id="company" placeholder="Company*" style="font-size: 1.3em;">
+                      </div>
+                      <div class="form-group" style="margin-bottom: 35px;">
+                        <!-- <label for="country">Country</label> -->
+                        <input type="url" id="domain" placeholder="Domain*" style="font-size: 1.3em;">
                       </div>
                       <div class="form-group" style="margin-bottom: 35px;">
                         <!-- <label for="password">Password</label> -->
